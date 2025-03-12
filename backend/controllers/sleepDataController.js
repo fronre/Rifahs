@@ -1,6 +1,4 @@
-import { PrismaClient } from '@prisma/client';
-
-const prisma = new PrismaClient();
+import prisma from '../config/database.js';
 
 export const addSleepLog = async (req, res) => {
   const { sleepStart, sleepEnd, deepSleep, interruptions, caffeine, screenTime } = req.body;

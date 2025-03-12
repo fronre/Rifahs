@@ -1,5 +1,6 @@
 import axios from 'axios';
-import { API_URL, API_KEY } from '../config/apiConfig.js';
+import { API_URL } from '../config/apiConfig.js';
+const API_KEY = process.env.API_KEY;
 
 export const fetchIslamicContent = async (mood) => {
   try {
