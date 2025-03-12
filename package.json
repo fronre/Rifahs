@@ -1,0 +1,22 @@
+{
+  "name": "refah",
+  "version": "1.0.0",
+  "description": "",
+  "license": "ISC",
+  "author": "",
+  "type": "commonjs",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "dependencies": {
+    "@prisma/client": "^6.5.0",
+    "axios": "^1.8.2",
+    "dotenv": "^16.4.7",
+    "express": "^4.21.2",
+    "langchain": "^0.3.19",
+    "openai": "^4.87.3",
+    "pg": "^8.14.0",
+    "prisma": "^6.5.0"
+  }
+}

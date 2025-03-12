@@ -1,0 +1,87 @@
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider = "postgresql"
+  url      = env("DATABASE_URL")
+}
+
+model User {
+  id         String   @id @default(uuid())
+  name       String
+  email      String   @unique
+  password   String
+  sleepLogs  SleepLog[]
+  reports    Report[]
+  mood       MoodAnalysis?
+  agenda     SleepAgenda?
+  leaderboard LeaderboardEntry?
+  community  CommunityPost[]
+}
+
+model SleepLog {
+  id         String  @id @default(uuid())
+  user       User    @relation(fields: [userId], references: [id])
+  userId     String
+  sleepStart DateTime
+  sleepEnd   DateTime
+  deepSleep  Float
+  interruptions Int
+  caffeine   Boolean
+  screenTime Boolean
+  createdAt  DateTime @default(now())
+}
+
+model Report {
+  id          String  @id @default(uuid())
+  user        User    @relation(fields: [userId], references: [id])
+  userId      String
+  type        String  // "daily", "weekly", "monthly"
+  summary     String
+  recommendations String
+  createdAt   DateTime @default(now())
+}
+
+model MoodAnalysis {
+  id        String   @id @default(uuid())
+  user      User     @relation(fields: [userId], references: [id])
+  userId    String   @unique
+  moodType  String   // "stressed", "calm", "focused"
+  quranSurah String
+  azkar     String
+  createdAt DateTime @default(now())
+}
+
+model IslamicReminders {
+  id        String   @id @default(uuid())
+  moodType  String   // "stressed", "overthinking", etc.
+  surah     String
+  azkar     String
+  createdAt DateTime @default(now())
+}
+
+model SleepAgenda {
+  id        String   @id @default(uuid())
+  user      User     @relation(fields: [userId], references: [id])
+  userId    String   @unique
+  bedtime   DateTime
+  wakeTime  DateTime
+  goals     String
+}
+
+model LeaderboardEntry {
+  id        String   @id @default(uuid())
+  user      User     @relation(fields: [userId], references: [id])
+  userId    String   @unique
+  sleepScore Float
+  ranking   Int
+}
+
+model CommunityPost {
+  id        String   @id @default(uuid())
+  user      User     @relation(fields: [userId], references: [id])
+  userId    String
+  content   String
+  createdAt DateTime @default(now())
+}
